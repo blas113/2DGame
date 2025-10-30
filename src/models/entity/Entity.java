@@ -1,12 +1,28 @@
 package models.entity;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
 import models.GamePanel;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Entity {
+//    GamePanel gp;
+//    public int worldX, worldY;
+//    public int y;
+//    public int speed;
+//
+//    public BufferedImage bup1, bup2, bdown1, bdown2, bleft1, bleft2, bright1, bright2, gup1, gup2, gdown1, gdown2, gleft1, gleft2, gright1, gright2;
+//    public String direction;
+//
+//    public int spriteCounter = 0;
+//    public int spriteNum = 1;
+//
+//    // Collision detection
+//    public Rectangle solidArea;
+//    public boolean collisionOn = false;
+//
+//    public int solidAreaDefaultX, solidAreaDefaultY;
     GamePanel gp;
     public int worldX, worldY;
     public int y;
@@ -32,7 +48,7 @@ public class Entity {
     public int dialogueIndex = 0;
 
     public void speak(){}
-    
+
     public void update() {
         // Método vacío por defecto, las subclases pueden sobrescribirlo
     }
@@ -60,41 +76,41 @@ public class Entity {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                    
-                    switch (direction){
-                        case "up":
-                            if(spriteNum == 1){
-                                image = up1;
-                            } else {
-                                image = up2;
-                            }
-                            break;
-                        case "down":
-                            if(spriteNum == 1){
-                                image = down1;
-                            } else {
-                                image = down2;
-                            }
-                            break;
-                        case "left":
-                            if(spriteNum == 1){
-                                image = left1;
-                            } else {
-                                image = left2;
-                            }
-                            break;
-                        case "right":
-                            if(spriteNum == 1){
-                                image = right1;
-                            } else {
-                                image = right2;
-                            }
-                            break;
+
+            switch (direction){
+                case "up":
+                    if(spriteNum == 1){
+                        image = up1;
+                    } else {
+                        image = up2;
                     }
-                    
-                    if(image != null) {
-                        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    break;
+                case "down":
+                    if(spriteNum == 1){
+                        image = down1;
+                    } else {
+                        image = down2;
                     }
+                    break;
+                case "left":
+                    if(spriteNum == 1){
+                        image = left1;
+                    } else {
+                        image = left2;
+                    }
+                    break;
+                case "right":
+                    if(spriteNum == 1){
+                        image = right1;
+                    } else {
+                        image = right2;
+                    }
+                    break;
+            }
+
+            if(image != null) {
+                g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            }
         }
     }
 }

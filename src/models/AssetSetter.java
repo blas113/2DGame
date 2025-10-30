@@ -14,9 +14,6 @@ public class AssetSetter {
     }
 
     public void setObject() {
-//        gp.obj[0] = new OBJ_Key();
-//        gp.obj[0].worldX = 23 * gp.tileSize;
-//        gp.obj[0].worldY = 7 * gp.tileSize;
 
         // ACCESS
         gp.obj[0] = new OBJ_AccessCard();
@@ -57,16 +54,15 @@ public class AssetSetter {
 
 
         }
-        //gp.obj[4].worldX = 7 * gp.tileSize;
-        //gp.obj[4].worldY = 2 * gp.tileSize;
 
 
     }
-
 
     public void setNPC(){
         gp.npc[0] = new NPC_Profe(gp);
         gp.npc[0].worldX = 10 * gp.tileSize;
         gp.npc[0].worldY = 40 * gp.tileSize;
     }
+
+
 }

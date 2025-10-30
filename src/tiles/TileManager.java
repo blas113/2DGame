@@ -16,7 +16,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp){
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[100];
         // Stores numbers from res.maps
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
@@ -25,30 +25,24 @@ public class TileManager {
 
     public void getTileImage(){
         try {
-//            tile[0] = new Tile();
-//            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass.png"));
-
+            // VOID
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/void.png"));
             tile[0].collision = true;
 
-//            // Solid
-//            tile[1] = new Tile();
-//            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
-//            tile[1].collision = true;
-            // Solid
+            // WALLL
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall3.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
             tile[1].collision = true;
 
+            // FLOOR
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/floor2.png"));
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/floor.png"));
 
-//            tile[3] = new Tile();
-//            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/earth.png"));
+            tile[14] = new Tile();
+            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/floorDamaged.png"));
 
             // TABLE
-            // Solid
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tableCorner.png"));
             tile[4].collision = true;
@@ -61,18 +55,55 @@ public class TileManager {
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tableEnd.png"));
             tile[6].collision = true;
 
-            // CHAIR
+            // TEACHER TABLE
+
+            tile[15] = new Tile();
+            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/teacherTableLeft.png"));
+            tile[15].collision = true;
+
+            tile[16] = new Tile();
+            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/teacherTableRight.png"));
+            tile[16].collision = true;
+
+            // TEACHER CHAIR
+            tile[17] = new Tile();
+            tile[17].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/teacherChairLeft.png"));
+            tile[17].collision = true;
+
+            tile[18] = new Tile();
+            tile[18].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/teacherChairRight.png"));
+            tile[18].collision = true;
+
+
+            // CHAIR FOLDED
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairCornerFolded.png"));
             tile[7].collision = true;
 
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairCenterFolded.png"));
+            tile[10].collision = true;
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairEndFolded.png"));
+            tile[11].collision = true;
+
+            // CHAIR UNFOLDED
             tile[8] = new Tile();
             tile[8].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairCornerUnfolded.png"));
             tile[8].collision = true;
 
+            tile[12] = new Tile();
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairCenterUnfolded.png"));
+            tile[12].collision = true;
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/chairEndUnfolded.png"));
+            tile[13].collision = true;
+
             // HALLWAY
             tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/hallway3.png"));
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/hallway.png"));
 
         } catch (IOException e){
             e.printStackTrace();

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 public class UI {
-    public String currentDialogue;
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
@@ -13,9 +12,8 @@ public class UI {
     public int commandNum = 0;
     int messageCounter = 0;
     public boolean gameFinished = false;
+    public String currentDialogue;
 
-    //double playTime;
-    //DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -24,10 +22,6 @@ public class UI {
 
     }
 
-    public void showMessage(String text){
-        message = text;
-        messageOn = true;
-    }
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
@@ -45,15 +39,15 @@ public class UI {
         } else if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
-        
-        //DIALOGUE STATE
-        if(gp.gameState == gp.dialogueState){
-            drawDialogueScreen();
-        }
 
         // GAME OVER
         if (gp.gameState == gp.gameOverState){
             drawGameOverScreen();
+        }
+
+        //DIALOGUE STATE
+        if(gp.gameState == gp.dialogueState){
+            drawDialogueScreen();
         }
     }
 
@@ -125,47 +119,6 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    public void drawDialogueScreen() {
-        // Dimensiones de la ventana de diálogo
-        int width = gp.screenWidth - (gp.tileSize * 6);
-        int height = gp.tileSize * 3;
-        int x = (gp.screenWidth - width) / 2;
-        int y = gp.tileSize * 2;
-
-        // Dibujar la ventana
-        drawSubWindow(x, y, width, height);
-
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
-        x += gp.tileSize;
-        y += gp.tileSize;
-
-        // Si hay texto, dividirlo por salto de línea
-        if (currentDialogue != null && !currentDialogue.isEmpty()) {
-            String[] lines = currentDialogue.split("\n");
-            for (String line : lines) {
-                if (line != null && !line.trim().isEmpty()) {
-                    g2.drawString(line, x, y);
-                    y += 40; // Espaciado entre líneas
-                }
-            }
-        } else {
-            // Texto por defecto si no hay diálogo
-            g2.drawString("...", x, y);
-        }
-    }
-    public void drawSubWindow(int x, int y, int width, int height){
-        Color c = new Color (0,0,0,210);
-        g2.setColor(c);
-        g2.fillRoundRect(x,y,width,height,25,25);
-
-        c=new Color(255,255,255);
-        g2.setColor(c);
-        g2.setStroke(new BasicStroke(5));
-        g2.drawRoundRect(x+5,y+5,width-10,height-10,15,15);
-        
-        
-    }
-
     public void drawGameOverScreen(){
         g2.setColor(new Color(0,0,0,150));
         g2.fillRect(0,0,gp.screenWidth, gp.screenHeight);
@@ -185,14 +138,6 @@ public class UI {
         //Text
         g2.setColor(Color.white);
         g2.drawString(text,x-4,y-4);
-        
-        // Mensaje específico
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40f));
-        text = "¡El profesor te atrapó!";
-        g2.setColor(Color.WHITE);
-        x = getXforCenteredText(text);
-        y += gp.tileSize * 2;
-        g2.drawString(text, x, y);
 
         //RETRY
         g2.setFont(g2.getFont().deriveFont(50f));
@@ -216,6 +161,43 @@ public class UI {
         }
 
     }
+
+    public void drawDialogueScreen() {
+        // Dimensiones de la ventana de diálogo
+        int width = gp.screenWidth - (gp.tileSize * 6);
+        int height = gp.tileSize * 3;
+        int x = (gp.screenWidth - width) / 2;
+        int y = gp.tileSize * 2;
+
+        // Dibujar la ventana
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+
+        // Si hay texto, dividirlo por salto de línea
+        if (currentDialogue != null) {
+            String[] lines = currentDialogue.split("\n");
+            for (String line : lines) {
+                g2.drawString(line, x, y);
+                y += 40; // Espaciado entre líneas
+            }
+        }
+    }
+    public void drawSubWindow(int x, int y, int width, int height){
+        Color c = new Color (0,0,0,210);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,width,height,25,25);
+
+        c=new Color(255,255,255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,width-10,height-10,15,15);
+
+
+    }
+
 
     public int getXforCenteredText(String text){
         int lenght = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();

@@ -11,7 +11,6 @@ import java.util.Objects;
 
 public class Player extends Entity {
 
-    public boolean accessCard;
     GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
@@ -19,9 +18,8 @@ public class Player extends Entity {
 
     int hasKey = 0;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
-        
         this.gp = gp;
         this.keyH = keyH;
 
@@ -102,7 +100,7 @@ public class Player extends Entity {
             // CHECK OBJ COLLISION
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
-            
+
             // CHECK NPC COLLISION
             gp.cChecker.checkNPC(this);
 
@@ -144,101 +142,40 @@ public class Player extends Entity {
 
     }
 
-//    public void pickUpObject(int i){
-//        if(i != 999) {
-//            String objectName = gp.obj[i].name;
-//            if (gp.keyH.enterPressed == true){
-//                gp.gameState = gp.dialogueState;// <-- asignación
-//                gp.cChecker.speak();
-//            }
-//            gp.keyH.enterPressed = false;
-//
-//            if (objectName.equals("accesscard")) {
-//                //gp.gameState = gp.dialogueState;// <-- asignación
-//                //gp.cChecker.speak();
-//                gp.ui.currentDialogue = "Has encontrado una tarjeta!";
-//                gp.obj[i] = null;                         // quita el objeto del mapa
-//                hasKey++;                                 // si aplica
-//                System.out.println("IKey: " + hasKey);
-//                return;                                   // si no quieres ejecutar el switch después
-//            }
-//
-//            switch(objectName){
-//                case "accesscard":
-//                    gp.obj[i] = null;
-//                    hasKey++;
-//                    gp.ui.currentDialogue = gp.obj[i].dialogues[0]; // mensaje de tarjeta
-//                    gp.gameState = gp.dialogueState;
-//                    System.out.println("1Key: " + hasKey);
-//                    break;
-//
-//                case "door":
-//                    if (hasKey > 0) {
-//                        gp.obj[i] = null; // quitar la puerta
-//                        hasKey--;
-//                        gp.ui.currentDialogue = gp.obj[i].dialogues[1]; // mensaje de puerta abierta
-//                    } else {
-//                        gp.ui.currentDialogue = gp.obj[i].dialogues[0]; // mensaje de puerta cerrada
-//                    }
-//                    gp.gameState = gp.dialogueState;
-//                    System.out.println("2Key: " + hasKey);
-//                    break;
-//                case "hallwaywarning":
-//                    System.out.println("EXIT");
-//                    // System.exit(1);
-//                    gp.gameState = gp.gameOverState;
-//                    break;
-//
-//
-//            }
-//        }
-//
-//    }
-
-    public void pickUpObject(int i) {
-
-        if (i != 999) {
-
+    public void pickUpObject(int i){
+        if(i != 999) {
             String objectName = gp.obj[i].name;
 
-            switch (objectName) {
+            switch(objectName){
                 case "accesscard":
                     hasKey++;
+                    gp.obj[i] = null;
                     gp.ui.currentDialogue = "Has encontrado una tarjeta!";
-                    gp.obj[i] = null; // eliminar la tarjeta del mapa
-                    System.out.println("1Key: " + hasKey);
+                    System.out.println("1Key: "+ hasKey);
                     gp.gameState = gp.dialogueState;
                     break;
-
                 case "door":
                     if (hasKey > 0) {
+                        gp.obj[i] = null;
                         hasKey--;
-                        gp.obj[i] = null; // eliminar la puerta del mapa
                         gp.ui.currentDialogue = "Usaste la tarjeta y abriste \nla puerta!";
-                        System.out.println("2Key: " + hasKey);
                     } else {
                         gp.ui.currentDialogue = "La puerta está \ncerrada con llave.";
                     }
                     gp.gameState = gp.dialogueState;
+                    System.out.println("2Key: "+ hasKey);
                     break;
-
-                case "chest":
-                    gp.ui.currentDialogue = "Encontraste un cofre!";
-                    gp.gameState = gp.dialogueState;
-                    break;
-
                 case "hallwaywarning":
-                    gp.ui.currentDialogue = "¡Has sido detectado!";  // o el mensaje que quieras
-                    gp.gameState = gp.gameOverState;                 // cambia al estado de game over
-                    System.out.println("Has perdido: tocaste el hallway warning.");
+                    System.out.println("EXIT");
+                    // System.exit(1);
+                    gp.gameState = gp.gameOverState;
                     break;
+
 
             }
-
-            gp.keyH.enterPressed = false;
         }
-    }
 
+    }
     public void draw(Graphics2D g2d){
 //        g2d.setColor(Color.white);
 //

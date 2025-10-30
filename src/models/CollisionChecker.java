@@ -3,7 +3,6 @@ package models;
 import models.entity.Entity;
 
 public class CollisionChecker {
-    public Object speak;
     GamePanel gp;
 
     public CollisionChecker (GamePanel gp){
@@ -121,8 +120,8 @@ public class CollisionChecker {
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreDefaultY;
             }
         }
         return index;
@@ -130,17 +129,17 @@ public class CollisionChecker {
 
     public int checkEntity(Entity entity, Entity[] target) {
         int index = 999;
-        
+
         for (int i = 0; i < target.length; i++) {
             if (target[i] != null) {
                 // Get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
-                
+
                 // Get the target's solid area position
                 target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
                 target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
-                
+
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
@@ -171,20 +170,20 @@ public class CollisionChecker {
                         }
                         break;
                 }
-                
+
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 target[i].solidArea.x = target[i].solidAreaDefaultX;
                 target[i].solidArea.y = target[i].solidAreaDefaultY;
             }
         }
-        
+
         return index;
     }
-    
+
     public void checkNPC(Entity entity) {
         int npcIndex = checkEntity(entity, gp.npc);
-        
+
         if (npcIndex != 999) {
             if (gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
@@ -192,7 +191,7 @@ public class CollisionChecker {
             }
         }
     }
-    
+
     public void checkPlayerNPCContact() {
         // Verificar si algún NPC está tocando al jugador
         for (int i = 0; i < gp.npc.length; i++) {
@@ -200,15 +199,12 @@ public class CollisionChecker {
                 // Calcular distancia entre NPC y jugador
                 int deltaX = Math.abs(gp.player.worldX - gp.npc[i].worldX);
                 int deltaY = Math.abs(gp.player.worldY - gp.npc[i].worldY);
-                
+
                 // Si están muy cerca (dentro de un tile), game over
                 if (deltaX < gp.tileSize && deltaY < gp.tileSize) {
                     gp.gameState = gp.gameOverState;
                 }
             }
         }
-    }
-    
-    public void speak() {
     }
 }

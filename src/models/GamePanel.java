@@ -1,6 +1,5 @@
 package models;
 
-import models.entity.NPC_Profe;
 import models.entity.Entity;
 import models.entity.Player;
 import models.object.SuperObject;
@@ -34,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     TileManager tileM = new TileManager(this);
     public EventHandler eHandler = new EventHandler(this);
-    public KeyHandler keyH = new KeyHandler(this);
+    KeyHandler keyH = new KeyHandler(this);
     Thread gameThread; // Redraw 60 times per secods (60 FPS)
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -44,7 +43,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Displays up to 10 objects at the same time
     public SuperObject obj[] = new SuperObject[1000];
-
     public Entity entity[] = new Entity[10];
     public Entity npc[] = new Entity[10];
 
@@ -78,7 +76,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         aSetter.setObject();
         aSetter.setNPC();
-        // gameState = playState;
         gameState = titleState;
     }
 
@@ -93,52 +90,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void retry(){
         player.setDefaultValues();
+        aSetter.setNPC();
         aSetter.setObject();
     }
 
-    //UI
 
-
-    // Este método implementa el bucle principal (game loop) del juego utilizando el método "Delta".
-// El objetivo del método Delta es controlar la velocidad de actualización (frames por segundo, FPS)
-// de forma precisa y estable, independientemente del rendimiento del procesador.
-//
-// 🔹 Concepto clave:
-// "Delta" representa el tiempo acumulado entre un frame y el siguiente.
-// Cuando este tiempo (deltaTime) alcanza el equivalente a un frame (1/FPS),
-// se ejecutan las acciones del juego: actualización de la lógica (update) y renderizado (repaint).
-//
-// 🔹 Paso a paso:
-//
-// 1️⃣ drawInterval = 1000000000 / FPS;
-//     - Calcula cuántos nanosegundos deben pasar entre cada frame.
-//     - Por ejemplo, si FPS = 60 → drawInterval = 16.666.666 nanosegundos.
-//
-// 2️⃣ lastTime = System.nanoTime();
-//     - Guarda el tiempo en nanosegundos de la iteración anterior.
-//
-// 3️⃣ En cada ciclo del while:
-//     - currentTime = System.nanoTime();
-//       Obtiene el tiempo actual.
-//
-//     - deltaTime += (currentTime - lastTime) / drawInterval;
-//       Calcula cuánto tiempo ha pasado desde el último frame,
-//       y lo acumula en deltaTime (en unidades de "frames").
-//
-//     - lastTime = currentTime;
-//       Actualiza el tiempo de referencia para la siguiente iteración.
-//
-// 4️⃣ if (deltaTime >= 1):
-//     - Cuando ha pasado el tiempo suficiente para al menos un frame completo:
-//         • update(): actualiza la lógica del juego (movimiento, colisiones, IA, etc.)
-//         • repaint(): redibuja la pantalla con los cambios realizados.
-//       Luego, deltaTime se reduce en 1, ya que un frame fue procesado.
-//
-// 🔹 Beneficio:
-// Este método permite que el juego se ejecute de forma fluida y estable a la velocidad deseada,
-// sin depender directamente de la velocidad de la CPU o del hardware del sistema.
-// Además, mantiene el consumo eficiente de recursos al evitar actualizaciones excesivas.
-//
     @Override // game loop
     public void run() {
 
@@ -177,20 +133,18 @@ public class GamePanel extends JPanel implements Runnable{
 
         if(gameState == playState){
             player.update();
-            
+
             // Actualizar NPCs
             for(int i = 0; i < npc.length; i++){
                 if(npc[i] != null) {
                     npc[i].update();
                 }
             }
-            
+
             // Verificar contacto entre jugador y NPCs
             cChecker.checkPlayerNPCContact();
         } else if (gameState == pauseState) {
-
-
-           
+            // Nothing
         }
 
     }
@@ -198,7 +152,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){ // repaint
         super.paintComponent(g);
 
-        Graphics2D g2d = (Graphics2D) g; 
+        Graphics2D g2d = (Graphics2D) g; // More sofisticated control, its a subclass of Graphics
 
         // TITLE SCREEN
         if (gameState == titleState){
@@ -214,13 +168,13 @@ public class GamePanel extends JPanel implements Runnable{
                     obj[i].draw(g2d, this);
                 }
             }
-
             // NPC
             for(int i = 0; i < npc.length; i++){
                 if(npc[i] != null) {
                     npc[i].draw(g2d);
                 }
             }
+
 
             // PLAYER
             player.draw(g2d);
