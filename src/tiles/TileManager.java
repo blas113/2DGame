@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
-    GamePanel gp;
+    private GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
 
@@ -18,7 +18,7 @@ public class TileManager {
         this.gp = gp;
         tile = new Tile[100];
         // Stores numbers from res.maps
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
         loadMap("/res/maps/world.txt");
     }
@@ -155,9 +155,9 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow){
+            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()){
                 String line = br.readLine();
-                while (col < gp.maxWorldCol){
+                while (col < gp.getMaxWorldCol()){
                     String numbers[] = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]); // Casts string to int
@@ -165,7 +165,7 @@ public class TileManager {
                     col++;
                 }
 
-                if(col == gp.maxWorldCol) {
+                if(col == gp.getMaxWorldCol()) {
                     col = 0;
                     row++;
                 }
@@ -181,28 +181,28 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
+        while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()){
             int tileNum = mapTileNum[worldCol][worldRow];
 
 
-            int worldX = worldCol * gp.tileSize; // Is the position on the map
-            int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX; // Where we draw the tiles on the screen
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int worldX = worldCol * gp.getTileSize(); // Is the position on the map
+            int worldY = worldRow * gp.getTileSize();
+            int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX(); // Where we draw the tiles on the screen
+            int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
 
             // We do not need to draw tiles that are 500 pixels away from the player, this cost resources, so we need
             // to optimize it.
 
             // AS long as the tiles are in the boundary, we draw it.
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gp.getTileSize() > gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
+                    worldX - gp.getTileSize() < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                    worldY + gp.getTileSize() > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                    worldY - gp.getTileSize() < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
             }
 
             worldCol++;
-            if (worldCol == gp.maxWorldCol){
+            if (worldCol == gp.getMaxWorldCol()){
                 worldCol = 0;
                 worldRow ++;
             }

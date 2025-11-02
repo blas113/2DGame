@@ -8,26 +8,26 @@ public class NPC_Police extends  Entity{
     public NPC_Police(GamePanel gp) {
         super(gp);
 
-        direction = "down";
-        speed = 1;
+        setDirection("down");
+        setSpeed(1);
 
         // área de colisión
-        solidArea = new Rectangle(8, 16, 32, 32);
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
+        setSolidArea(new Rectangle(8, 16, 32, 32));
+        setSolidAreaDefaultX(getSolidArea().x);
+        setSolidAreaDefaultY(getSolidArea().y);
 
         getImage();
     }
 
     public void getImage(){
-        up1 = setup("/npc/SeguridadArriba1.png");
-        up2 = setup("/npc/SeguridadArriba2.png");
-        down1 = setup("/npc/SeguridadAbajo1.png");
-        down2 = setup("/npc/SeguridadAbajo2.png");
-        left1 = setup("/npc/SeguridadIzquierda1.png");
-        left2 = setup("/npc/SeguridadIzquierda2.png");
-        right1 = setup("/npc/SeguridadDerecha1.png");
-        right2 = setup("/npc/SeguridadDerecha2.png");
+        setUp1(setup("/npc/SeguridadArriba1.png"));
+        setUp2(setup("/npc/SeguridadArriba2.png"));
+        setDown1(setup("/npc/SeguridadAbajo1.png"));
+        setDown2(setup("/npc/SeguridadAbajo2.png"));
+        setLeft1(setup("/npc/SeguridadIzquierda1.png"));
+        setLeft2(setup("/npc/SeguridadIzquierda2.png"));
+        setRight1(setup("/npc/SeguridadDerecha1.png"));
+        setRight2(setup("/npc/SeguridadDerecha2.png"));
     }
 
     private int directionChangeCounter = 0;
@@ -37,26 +37,26 @@ public class NPC_Police extends  Entity{
 
     public void update() {
         // Pathfinding hacia el jugador
-        int playerWorldX = gp.player.worldX;
-        int playerWorldY = gp.player.worldY;
+        int playerWorldX = getGamePanel().getPlayer().getWorldX();
+        int playerWorldY = getGamePanel().getPlayer().getWorldY();
 
         // Calcular distancia al jugador
-        int deltaX = playerWorldX - worldX;
-        int deltaY = playerWorldY - worldY;
+        int deltaX = playerWorldX - getWorldX();
+        int deltaY = playerWorldY - getWorldY();
 
         // Verificar si estamos en diagonal
         int absDeltaX = Math.abs(deltaX);
         int absDeltaY = Math.abs(deltaY);
-        boolean isDiagonal = Math.abs(absDeltaX - absDeltaY) < gp.tileSize;
+        boolean isDiagonal = Math.abs(absDeltaX - absDeltaY) < getGamePanel().getTileSize();
 
         // Determinar dirección hacia el jugador (solo vertical u horizontal)
         String targetDirection = getDirectionToPlayer(deltaX, deltaY);
 
         // Verificar si la dirección actual aún es válida hacia el jugador
-        boolean currentDirectionValid = isDirectionValid(direction, deltaX, deltaY);
+        boolean currentDirectionValid = isDirectionValid(getDirection(), deltaX, deltaY);
 
         // Sistema de estabilización mejorado: cuando está en diagonal, mantener dirección más tiempo
-        if(!targetDirection.equals(direction)) {
+        if(!targetDirection.equals(getDirection())) {
             // Si la dirección actual no es válida, cambiar inmediatamente
             if(!currentDirectionValid) {
                 directionChangeCounter = 0;
@@ -75,7 +75,7 @@ public class NPC_Police extends  Entity{
 
                 if(!shouldChange) {
                     // Mantener la dirección actual
-                    targetDirection = direction;
+                    targetDirection = getDirection();
                 } else {
                     // Resetear contadores al cambiar
                     directionChangeCounter = 0;
@@ -88,18 +88,18 @@ public class NPC_Police extends  Entity{
         }
 
         // Intentar moverse en la dirección objetivo
-        direction = targetDirection;
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
+        setDirection(targetDirection);
+        setCollisionOn(false);
+        getGamePanel().getCollisionChecker().checkTile(this);
 
         // Si hay colisión, intentar direcciones alternativas (solo vertical u horizontal)
-        if(collisionOn) {
+        if(isCollisionOn()) {
             String[] alternativeDirections = getAlternativeDirections(targetDirection);
             for(String altDir : alternativeDirections) {
-                direction = altDir;
-                collisionOn = false;
-                gp.cChecker.checkTile(this);
-                if(!collisionOn) {
+                setDirection(altDir);
+                setCollisionOn(false);
+                getGamePanel().getCollisionChecker().checkTile(this);
+                if(!isCollisionOn()) {
                     // Resetear contadores al encontrar nueva dirección válida
                     directionChangeCounter = 0;
                     distanceInCurrentDirection = 0;
@@ -109,23 +109,23 @@ public class NPC_Police extends  Entity{
         }
 
         // Moverse si no hay colisión (solo en direcciones cardinales)
-        if(!collisionOn) {
-            switch(direction) {
+        if(!isCollisionOn()) {
+            switch(getDirection()) {
                 case "up":
-                    worldY -= speed;
-                    distanceInCurrentDirection += speed;
+                    setWorldY(getWorldY() - getSpeed());
+                    distanceInCurrentDirection += getSpeed();
                     break;
                 case "down":
-                    worldY += speed;
-                    distanceInCurrentDirection += speed;
+                    setWorldY(getWorldY() + getSpeed());
+                    distanceInCurrentDirection += getSpeed();
                     break;
                 case "left":
-                    worldX -= speed;
-                    distanceInCurrentDirection += speed;
+                    setWorldX(getWorldX() - getSpeed());
+                    distanceInCurrentDirection += getSpeed();
                     break;
                 case "right":
-                    worldX += speed;
-                    distanceInCurrentDirection += speed;
+                    setWorldX(getWorldX() + getSpeed());
+                    distanceInCurrentDirection += getSpeed();
                     break;
             }
         } else {
@@ -134,14 +134,14 @@ public class NPC_Police extends  Entity{
         }
 
         // Actualizar sprite
-        spriteCounter++;
-        if(spriteCounter > 12) {
-            if(spriteNum == 1) {
-                spriteNum = 2;
-            } else if(spriteNum == 2) {
-                spriteNum = 1;
+        incrementSpriteCounter();
+        if(getSpriteCounter() > 12) {
+            if(getSpriteNum() == 1) {
+                setSpriteNum(2);
+            } else if(getSpriteNum() == 2) {
+                setSpriteNum(1);
             }
-            spriteCounter = 0;
+            setSpriteCounter(0);
         }
     }
 
@@ -150,20 +150,20 @@ public class NPC_Police extends  Entity{
         int absDeltaY = Math.abs(deltaY);
 
         // Umbral para detectar cuando está en diagonal
-        int threshold = gp.tileSize;
+        int threshold = getGamePanel().getTileSize();
         boolean isDiagonal = Math.abs(absDeltaX - absDeltaY) < threshold;
 
         // PRIORIDAD: Si la dirección actual es válida, mantenerla especialmente en diagonal
-        if(direction != null && isDirectionValid(direction, deltaX, deltaY)) {
+        if(getDirection() != null && isDirectionValid(getDirection(), deltaX, deltaY)) {
             if(isDiagonal) {
                 // En diagonal, mantener la dirección actual a menos que hayamos recorrido mucha distancia
                 if(distanceInCurrentDirection < MIN_DISTANCE_TO_CHANGE * 2) {
-                    return direction;
+                    return getDirection();
                 }
             } else {
                 // No diagonal: mantener si no hay razón fuerte para cambiar
                 if(distanceInCurrentDirection < MIN_DISTANCE_TO_CHANGE) {
-                    return direction;
+                    return getDirection();
                 }
             }
         }
@@ -172,9 +172,9 @@ public class NPC_Police extends  Entity{
         if(isDiagonal) {
             // Elegir basándose en cuál distancia es mayor
             // Pero si la dirección actual es horizontal y estamos cerca en X, elegir vertical
-            if(direction != null) {
-                boolean isCurrentHorizontal = direction.equals("left") || direction.equals("right");
-                boolean isCurrentVertical = direction.equals("up") || direction.equals("down");
+            if(getDirection() != null) {
+                boolean isCurrentHorizontal = getDirection().equals("left") || getDirection().equals("right");
+                boolean isCurrentVertical = getDirection().equals("up") || getDirection().equals("down");
 
                 // Si vamos horizontal y ya avanzamos suficiente, cambiar a vertical si es válido
                 if(isCurrentHorizontal && distanceInCurrentDirection >= MIN_DISTANCE_TO_CHANGE && absDeltaY > 0) {

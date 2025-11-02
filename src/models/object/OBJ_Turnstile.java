@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class OBJ_Turnstile extends SuperObject{
     public OBJ_Turnstile() {
-        name = "molinete";
+        setName("molinete");
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/turnstile.png"));
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/objects/turnstile.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        collision = false;
+        setCollision(false);
     }
 }

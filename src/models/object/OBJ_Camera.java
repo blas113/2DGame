@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class OBJ_Camera extends SuperObject{
     public OBJ_Camera() {
-        name = "Camera";
+        setName("Camera");
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/camera.png"));
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/objects/camera.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        collision = true;
+        setCollision(true);
     }
 }

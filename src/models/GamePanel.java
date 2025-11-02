@@ -11,47 +11,45 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     // SCREEN SETTINGS
-    final int originalTileSize = 16;
-    final int scale = 3;
+    private final int originalTileSize = 16;
+    private final int scale = 3;
 
-    public final int tileSize = originalTileSize * scale; // 48 * 48 Tile
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; // 768 Pixels
-    public final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
+    private final int tileSize = originalTileSize * scale; // 48 * 48 Tile
+    private final int maxScreenCol = 16;
+    private final int maxScreenRow = 12;
+    private final int screenWidth = tileSize * maxScreenCol; // 768 Pixels
+    private final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
 
     // WORLD SETTINGS
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-
+    private final int maxWorldCol = 50;
+    private final int maxWorldRow = 50;
 
     // FPS
-    int FPS = 60;
+    private int FPS = 60;
 
-    TileManager tileM = new TileManager(this);
-    public EventHandler eHandler = new EventHandler(this);
-    public KeyHandler keyH = new KeyHandler(this);
-    Thread gameThread; // Redraw 60 times per secods (60 FPS)
-    public CollisionChecker cChecker = new CollisionChecker(this);
+    private TileManager tileM = new TileManager(this);
+    private EventHandler eHandler = new EventHandler(this);
+    private KeyHandler keyH = new KeyHandler(this);
+    private Thread gameThread; // Redraw 60 times per secods (60 FPS)
+    private CollisionChecker cChecker = new CollisionChecker(this);
 
-    public Player player = new Player(this, keyH);
+    private Player player = new Player(this, keyH);
 
-    public AssetSetter aSetter = new AssetSetter(this);
+    private AssetSetter aSetter = new AssetSetter(this);
 
     // Displays up to 10 objects at the same time
-    public SuperObject obj[] = new SuperObject[1000];
-    public Entity npc[] = new Entity[10];
+    private SuperObject obj[] = new SuperObject[1000];
+    private Entity npc[] = new Entity[10];
 
-    public UI ui = new UI(this);
-
+    private UI ui = new UI(this);
 
     //GAME STATE
-    public int gameState;
-    public final int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int dialogueState = 3;
-    public final int gameOverState = 6;
+    private int gameState;
+    public static final int titleState = 0;
+    public static final int playState = 1;
+    public static final int pauseState = 2;
+    public static final int dialogueState = 3;
+    public static final int gameOverState = 6;
 
 
 
@@ -66,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         aSetter.setObject();
         aSetter.setNPC();
-        gameState = titleState;
+        setGameState(titleState);
     }
 
     public void startGameThread(){
@@ -74,15 +72,76 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
     }
 
+    // Getters y Setters
     public int getTileSize(){
         return tileSize;
+    }
+    
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+    
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+    
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+    
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+    
+    public TileManager getTileManager() {
+        return tileM;
+    }
+    
+    public EventHandler getEventHandler() {
+        return eHandler;
+    }
+    
+    public KeyHandler getKeyHandler() {
+        return keyH;
+    }
+    
+    public CollisionChecker getCollisionChecker() {
+        return cChecker;
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
+    
+    public AssetSetter getAssetSetter() {
+        return aSetter;
+    }
+    
+    public SuperObject[] getObjects() {
+        return obj;
+    }
+    
+    public Entity[] getNPCs() {
+        return npc;
+    }
+    
+    public UI getGameUI() {
+        return ui;
+    }
+    
+    public int getGameState() {
+        return gameState;
+    }
+    
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
     }
 
     public void retry(){
         player.setDefaultValues();
         aSetter.setNPC();
         aSetter.setObject();
-        player.hasKey = 0;
+        player.setHasKey(0);
     }
 
 
@@ -122,7 +181,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Y values increses as they go down
     public void update(){
 
-        if(gameState == playState){
+        if(getGameState() == playState){
             player.update();
 
             // Actualizar NPCs
@@ -134,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             // Verificar contacto entre jugador y NPCs
             cChecker.checkPlayerNPCContact();
-        } else if (gameState == pauseState) {
+        } else if (getGameState() == pauseState) {
             // Nothing
         }
 
@@ -146,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2d = (Graphics2D) g; // More sofisticated control, its a subclass of Graphics
 
         // TITLE SCREEN
-        if (gameState == titleState){
+        if (getGameState() == titleState){
 
             ui.draw(g2d);
         } else {

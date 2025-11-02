@@ -5,14 +5,14 @@ import java.io.IOException;
 
 public class OBJ_AccessCard extends SuperObject {
     public OBJ_AccessCard() {
-        name = "accesscard";
+        setName("accesscard");
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/accessCard.png"));
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/objects/accessCard.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        collision = true;
+        setCollision(true);
     }
 
 }

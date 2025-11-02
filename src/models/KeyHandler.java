@@ -5,9 +5,34 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, leftPress, rightPressed, enterPressed;
+    private boolean upPressed;
+    private boolean downPressed;
+    private boolean leftPressed;
+    private boolean rightPressed;
+    private boolean enterPressed;
 
-    GamePanel gp;
+    private GamePanel gp;
+    
+    // Getters
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+    
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+    
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+    
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+    
+    public boolean isEnterPressed() {
+        return enterPressed;
+    }
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -23,33 +48,37 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         // TITLE STATE
-        if(gp.gameState==gp.titleState){
+        if(gp.getGameState() == GamePanel.titleState){
             if(code == KeyEvent.VK_W){
-                gp.ui.commandNum--;
-                if(gp.ui.commandNum < 0){
-                    gp.ui.commandNum = 1;
+                int newCommandNum = gp.getGameUI().getCommandNum() - 1;
+                if(newCommandNum < 0){
+                    gp.getGameUI().setCommandNum(1);
+                } else {
+                    gp.getGameUI().setCommandNum(newCommandNum);
                 }
             }
             if(code == KeyEvent.VK_S){
-                gp.ui.commandNum++;
-                if(gp.ui.commandNum > 1){
-                    gp.ui.commandNum = 0;
+                int newCommandNum = gp.getGameUI().getCommandNum() + 1;
+                if(newCommandNum > 1){
+                    gp.getGameUI().setCommandNum(0);
+                } else {
+                    gp.getGameUI().setCommandNum(newCommandNum);
                 }
             }
             if (code == KeyEvent.VK_ENTER){
                 // NEW GAME
-                if(gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
+                if(gp.getGameUI().getCommandNum() == 0) {
+                    gp.setGameState(GamePanel.playState);
                 }
                 //EXIT GAME
-                if (gp.ui.commandNum == 1) {
+                if (gp.getGameUI().getCommandNum() == 1) {
                     System.exit(0);
                 }
             }
         }
 
         // PLAY STATE
-        if(gp.gameState == gp.gameState){
+        if(gp.getGameState() == GamePanel.playState){
             if(code == KeyEvent.VK_W){
                 upPressed = true;
             }
@@ -57,56 +86,60 @@ public class KeyHandler implements KeyListener {
                 downPressed = true;
             }
             if(code == KeyEvent.VK_A){
-                leftPress = true;
+                leftPressed = true;
             }
             if(code == KeyEvent.VK_D){
                 rightPressed = true;
             }
             if(code == KeyEvent.VK_P){
-                if(gp.gameState == gp.playState){
-                    gp.gameState = gp.pauseState;
-                } else if (gp.gameState == gp.pauseState){
-                    gp.gameState = gp.playState;
+                if(gp.getGameState() == GamePanel.playState){
+                    gp.setGameState(GamePanel.pauseState);
+                } else if (gp.getGameState() == GamePanel.pauseState){
+                    gp.setGameState(GamePanel.playState);
                 }
             }
             if (code == KeyEvent.VK_ENTER){
-                if (gp.gameState == gp.playState){
+                if (gp.getGameState() == GamePanel.playState){
                     enterPressed = true;
                 }
             }
         }
 
         // GAME OVER STATE
-        if (gp.gameState == gp.gameOverState) {
+        if (gp.getGameState() == GamePanel.gameOverState) {
             if(code == KeyEvent.VK_W){
-                gp.ui.commandNum--;
-                if(gp.ui.commandNum < 0){
-                    gp.ui.commandNum = 1;
+                int newCommandNum = gp.getGameUI().getCommandNum() - 1;
+                if(newCommandNum < 0){
+                    gp.getGameUI().setCommandNum(1);
+                } else {
+                    gp.getGameUI().setCommandNum(newCommandNum);
                 }
             }
             if(code == KeyEvent.VK_S){
-                gp.ui.commandNum++;
-                if(gp.ui.commandNum > 1){
-                    gp.ui.commandNum = 0;
+                int newCommandNum = gp.getGameUI().getCommandNum() + 1;
+                if(newCommandNum > 1){
+                    gp.getGameUI().setCommandNum(0);
+                } else {
+                    gp.getGameUI().setCommandNum(newCommandNum);
                 }
             }
             if (code == KeyEvent.VK_ENTER){
                 // RETRY
-                if(gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
+                if(gp.getGameUI().getCommandNum() == 0) {
+                    gp.setGameState(GamePanel.playState);
                     gp.retry();
                 }
                 //EXIT GAME
-                if (gp.ui.commandNum == 1) {
+                if (gp.getGameUI().getCommandNum() == 1) {
                     System.exit(0);
                 }
             }
         }
 
         // Dialogue State
-        if (gp.gameState == gp.dialogueState) {
+        if (gp.getGameState() == GamePanel.dialogueState) {
             if (code == KeyEvent.VK_ENTER) {
-                gp.gameState = gp.playState;
+                gp.setGameState(GamePanel.playState);
             }
         }
 
@@ -124,7 +157,7 @@ public class KeyHandler implements KeyListener {
             downPressed = false;
         }
         if(code == KeyEvent.VK_A){
-            leftPress = false;
+            leftPressed = false;
         }
         if(code == KeyEvent.VK_D){
             rightPressed = false;

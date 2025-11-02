@@ -11,12 +11,12 @@ import java.util.Objects;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler keyH;
-    public final int screenX;
-    public final int  screenY;
+    private GamePanel gp;
+    private KeyHandler keyH;
+    private final int screenX;
+    private final int screenY;
 
-    public int hasKey = 0;
+    private int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
@@ -24,55 +24,74 @@ public class Player extends Entity {
         this.keyH = keyH;
 
         // half point of the screen
-        this.screenX = gp.screenWidth / 2 - (gp.tileSize / 2); // Subtract a half tile length from both screenX and screenY
-        this.screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+        this.screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2); // Subtract a half tile length from both screenX and screenY
+        this.screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
 
         // Coliision detection (not the whole character)
-        solidArea = new Rectangle(); // 8 16 32 32
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
+        setSolidArea(new Rectangle()); // 8 16 32 32
+        getSolidArea().x = 8;
+        getSolidArea().y = 16;
+        getSolidArea().width = 32;
+        getSolidArea().height = 32;
+        setSolidAreaDefaultX(getSolidArea().x);
+        setSolidAreaDefaultY(getSolidArea().y);
 
 
         setDefaultValues();
         getPlayerImage();
 
     }
-
-
+    
+    // Getters y Setters
+    public int getScreenX() {
+        return screenX;
+    }
+    
+    public int getScreenY() {
+        return screenY;
+    }
+    
+    public int getHasKey() {
+        return hasKey;
+    }
+    
+    public void setHasKey(int hasKey) {
+        this.hasKey = hasKey;
+    }
+    
+    public KeyHandler getKeyHandler() {
+        return keyH;
+    }
 
     public void setDefaultValues(){
         // "Respawn"
-        this.worldX = gp.tileSize * 10;
-        this.worldY = gp.tileSize * 44;
-        this.speed = 4;
-        direction = "down";
+        setWorldX(gp.getTileSize() * 10);
+        setWorldY(gp.getTileSize() * 44);
+        setSpeed(4);
+        setDirection("down");
     }
 
     public void getPlayerImage(){
         try{
             // BOY
-            bup1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_up_1.png")));
-            bup2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_up_2.png")));
-            bdown1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_down_1.png")));
-            bdown2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_down_2.png")));
-            bleft1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_left_1.png")));
-            bleft2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_left_2.png")));
-            bright1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_right_1.png")));
-            bright2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_right_2.png")));
+            setBup1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_up_1.png"))));
+            setBup2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_up_2.png"))));
+            setBdown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_down_1.png"))));
+            setBdown2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_down_2.png"))));
+            setBleft1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_left_1.png"))));
+            setBleft2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_left_2.png"))));
+            setBright1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_right_1.png"))));
+            setBright2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/boy_right_2.png"))));
 
             // GIRL
-            gup1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_up_1.png")));
-            gup2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_up_2.png")));
-            gdown1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_down_1.png")));
-            gdown2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_down_2.png")));
-            gleft1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_left_1.png")));
-            gleft2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_left_2.png")));
-            gright1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_right_1.png")));
-            gright2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_right_2.png")));
+            setGup1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_up_1.png"))));
+            setGup2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_up_2.png"))));
+            setGdown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_down_1.png"))));
+            setGdown2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_down_2.png"))));
+            setGleft1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_left_1.png"))));
+            setGleft2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_left_2.png"))));
+            setGright1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_right_1.png"))));
+            setGright2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Walking_sprites/girl_right_2.png"))));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,101 +101,95 @@ public class Player extends Entity {
 
     public void update(){
 
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPress == true || keyH.rightPressed == true){
-            if (keyH.upPressed) {
-                direction = "up";
-            } else if (keyH.downPressed) {
-                direction = "down";
-            } else if (keyH.rightPressed) {
-                direction = "right";
-            } else if  (keyH.leftPress){
-                direction = "left";
+        if (keyH.isUpPressed() || keyH.isDownPressed() || keyH.isLeftPressed() || keyH.isRightPressed()){
+            if (keyH.isUpPressed()) {
+                setDirection("up");
+            } else if (keyH.isDownPressed()) {
+                setDirection("down");
+            } else if (keyH.isRightPressed()) {
+                setDirection("right");
+            } else if  (keyH.isLeftPressed()){
+                setDirection("left");
             }
 
             // CHECK TILE COLLISION
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-
-            //gp.keyH.enterPressed = false;
+            setCollisionOn(false);
+            gp.getCollisionChecker().checkTile(this);
 
             // CHECK OBJ COLLISION
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.getCollisionChecker().checkObject(this, true);
             pickUpObject(objIndex);
 
             // CHECK NPC COLLISION
-            gp.cChecker.checkNPC(this);
+            gp.getCollisionChecker().checkNPC(this);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (!collisionOn){
-                switch (direction){
+            if (!isCollisionOn()){
+                switch (getDirection()){
                     case "up":
-                        worldY -= speed;
+                        setWorldY(getWorldY() - getSpeed());
                         break;
                     case "down":
-                        worldY += speed;
+                        setWorldY(getWorldY() + getSpeed());
                         break;
                     case "left":
-                        worldX -= speed;
+                        setWorldX(getWorldX() - getSpeed());
                         break;
                     case "right":
-                        worldX += speed;
-
+                        setWorldX(getWorldX() + getSpeed());
                         break;
-
                 }
             }
 
-            gp.eHandler.checkEvent();
-
+            gp.getEventHandler().checkEvent();
 
             // Update is executed 60 times per second
-            spriteCounter++;
-            if(spriteCounter > 12) {
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            incrementSpriteCounter();
+            if(getSpriteCounter() > 12) {
+                if(getSpriteNum() == 1){
+                    setSpriteNum(2);
+                } else if (getSpriteNum() == 2) {
+                    setSpriteNum(1);
                 }
-                spriteCounter = 0;
+                setSpriteCounter(0);
             }
         }
-
 
     }
 
     public void pickUpObject(int i){
         if(i != 999) {
-            String objectName = gp.obj[i].name;
+            String objectName = gp.getObjects()[i].getName();
 
             switch(objectName){
                 case "accesscard":
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.currentDialogue = "Has encontrado una tarjeta!";
-                    gp.gameState = gp.dialogueState;
+                    setHasKey(getHasKey() + 1);
+                    gp.getObjects()[i] = null;
+                    gp.getGameUI().setCurrentDialogue("Has encontrado una tarjeta!");
+                    gp.setGameState(GamePanel.dialogueState);
                     break;
                 case "door", "molinete":
-                    if (hasKey > 0) {
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.currentDialogue = "Usaste la tarjeta y abriste \nla puerta!";
+                    if (getHasKey() > 0) {
+                        gp.getObjects()[i] = null;
+                        setHasKey(getHasKey() - 1);
+                        gp.getGameUI().setCurrentDialogue("Usaste la tarjeta y abriste \nla puerta!");
                     } else {
-                        gp.ui.currentDialogue = "La puerta está \ncerrada con llave.";
+                        gp.getGameUI().setCurrentDialogue("La puerta está \ncerrada con llave.");
                     }
-                    gp.gameState = gp.dialogueState;
+                    gp.setGameState(GamePanel.dialogueState);
                     break;
                 case "hallwaywarning":
-                    gp.gameState = gp.gameOverState;
+                    gp.setGameState(GamePanel.gameOverState);
                     break;
                 case "qrcode":
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.currentDialogue = "Has encontrado un QR \nUsalo para escapar!";
-                    gp.npc[1].speed = 2;
-                    gp.gameState = gp.dialogueState;
+                    setHasKey(getHasKey() + 1);
+                    gp.getObjects()[i] = null;
+                    gp.getGameUI().setCurrentDialogue("Has encontrado un QR \nUsalo para escapar!");
+                    gp.getNPCs()[1].setSpeed(2);
+                    gp.setGameState(GamePanel.dialogueState);
                     break;
                 case "exitwarning":
-                    gp.gameState = gp.gameOverState;
+                    gp.setGameState(GamePanel.gameOverState);
                     break;
 
             }
@@ -185,33 +198,33 @@ public class Player extends Entity {
     }
     public void draw(Graphics2D g2d){
         BufferedImage image = null;
-        switch (direction){
+        switch (getDirection()){
             case "up":
-                if(spriteNum == 1){
-                    image = bup1;
+                if(getSpriteNum() == 1){
+                    image = getBup1();
                 } else {
-                    image = bup2;
+                    image = getBup2();
                 }
                 break;
             case "down":
-                if(spriteNum == 1){
-                    image = bdown1;
+                if(getSpriteNum() == 1){
+                    image = getBdown1();
                 } else {
-                    image = bdown2;
+                    image = getBdown2();
                 }
                 break;
             case "left":
-                if(spriteNum == 1){
-                    image = bleft1;
+                if(getSpriteNum() == 1){
+                    image = getBleft1();
                 } else {
-                    image = bleft2;
+                    image = getBleft2();
                 }
                 break;
             case "right":
-                if(spriteNum == 1){
-                    image = bright1;
+                if(getSpriteNum() == 1){
+                    image = getBright1();
                 } else {
-                    image = bright2;
+                    image = getBright2();
                 }
                 break;
         }

@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class OBJ_QrCode extends SuperObject{
     public OBJ_QrCode() {
-        name = "qrcode";
+        setName("qrcode");
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/qrCode.png"));
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/objects/qrCode.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        collision = true;
+        setCollision(true);
     }
 }

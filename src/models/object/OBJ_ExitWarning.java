@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class OBJ_ExitWarning extends SuperObject{
     public OBJ_ExitWarning(){
-        name = "exitwarning";
+        setName("exitwarning");
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/exitFloorWarning.png"));
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/objects/exitFloorWarning.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        collision = false;
+        setCollision(false);
     }
 }

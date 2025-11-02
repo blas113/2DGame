@@ -7,7 +7,8 @@ import models.object.*;
 import java.util.function.BiConsumer;
 
 public class AssetSetter {
-    GamePanel gp;
+    private GamePanel gp;
+    
     public AssetSetter(GamePanel gp){
         this.gp = gp;
 
@@ -16,55 +17,55 @@ public class AssetSetter {
     public void setObject() {
 
         // ACCESS CARD
-        gp.obj[0] = new OBJ_AccessCard();
-        gp.obj[0].worldX = 11 * gp.tileSize;
-        gp.obj[0].worldY = 46 * gp.tileSize;
+        gp.getObjects()[0] = new OBJ_AccessCard();
+        gp.getObjects()[0].setWorldX(11 * gp.getTileSize());
+        gp.getObjects()[0].setWorldY(46 * gp.getTileSize());
 
         // ROOM Door
-        gp.obj[1] = new OBJ_Door();
-        gp.obj[1].worldX = 15 * gp.tileSize;
-        gp.obj[1].worldY = 36 * gp.tileSize;
+        gp.getObjects()[1] = new OBJ_Door();
+        gp.getObjects()[1].setWorldX(15 * gp.getTileSize());
+        gp.getObjects()[1].setWorldY(36 * gp.getTileSize());
 
         // HALLWAY ENTRY DOOR
-        gp.obj[2] = new OBJ_Door();
-        gp.obj[2].worldX = 1 * gp.tileSize;
-        gp.obj[2].worldY = 3 * gp.tileSize;
+        gp.getObjects()[2] = new OBJ_Door();
+        gp.getObjects()[2].setWorldX(1 * gp.getTileSize());
+        gp.getObjects()[2].setWorldY(3 * gp.getTileSize());
 
         // QR CODE
-        gp.obj[40] = new OBJ_QrCode();
-        gp.obj[40].worldX = 10 * gp.tileSize;
-        gp.obj[40].worldY = 27 * gp.tileSize;
+        gp.getObjects()[40] = new OBJ_QrCode();
+        gp.getObjects()[40].setWorldX(10 * gp.getTileSize());
+        gp.getObjects()[40].setWorldY(27 * gp.getTileSize());
 
 
 
 
         // CAMERA HALLWAY 1
-        gp.obj[3] = new OBJ_Camera();
-        gp.obj[3].worldX = 7 * gp.tileSize;
-        gp.obj[3].worldY = 1 * gp.tileSize;
+        gp.getObjects()[3] = new OBJ_Camera();
+        gp.getObjects()[3].setWorldX(7 * gp.getTileSize());
+        gp.getObjects()[3].setWorldY(1 * gp.getTileSize());
 
         // DETECTION HALLWAY 1
         for(int i = 0; i <= 32; i++) {
-            gp.obj[4+i] = new OBJ_HallwayWarning();
+            gp.getObjects()[4+i] = new OBJ_HallwayWarning();
             if (i<5) {
-                gp.obj[4+i].worldX = (7+i) * gp.tileSize;
-                gp.obj[4+i].worldY = (2) * gp.tileSize;
+                gp.getObjects()[4+i].setWorldX((7+i) * gp.getTileSize());
+                gp.getObjects()[4+i].setWorldY((2) * gp.getTileSize());
             } else if (i<13) {
-                gp.obj[4 + i].worldX = (i) * gp.tileSize;
-                gp.obj[4 + i].worldY = (3) * gp.tileSize;
+                gp.getObjects()[4 + i].setWorldX((i) * gp.getTileSize());
+                gp.getObjects()[4 + i].setWorldY((3) * gp.getTileSize());
             } else if (i<22) {
-                gp.obj[4 + i].worldX = (i-8) * gp.tileSize;
-                gp.obj[4 + i].worldY = (4) * gp.tileSize;
+                gp.getObjects()[4 + i].setWorldX((i-8) * gp.getTileSize());
+                gp.getObjects()[4 + i].setWorldY((4) * gp.getTileSize());
             } else {
-                gp.obj[4 + i].worldX = (i - 17) * gp.tileSize;
-                gp.obj[4 + i].worldY = (5) * gp.tileSize;
+                gp.getObjects()[4 + i].setWorldX((i - 17) * gp.getTileSize());
+                gp.getObjects()[4 + i].setWorldY((5) * gp.getTileSize());
             }
         }
 
         // CAMERA HALLWAY 2
-        gp.obj[254] = new OBJ_Camera();
-        gp.obj[254].worldX = 16 * gp.tileSize ;
-        gp.obj[254].worldY = 9 * gp.tileSize;
+        gp.getObjects()[254] = new OBJ_Camera();
+        gp.getObjects()[254].setWorldX(16 * gp.getTileSize());
+        gp.getObjects()[254].setWorldY(9 * gp.getTileSize());
 
 
 
@@ -76,36 +77,36 @@ public class AssetSetter {
                 aux = 0;
             }
             if (i<=6) {
-                gp.obj[198+i] = new OBJ_HallwayWarning();
-                gp.obj[198+i].worldX = (16+aux) * gp.tileSize;
-                gp.obj[198+i].worldY = (8) * gp.tileSize;
+                gp.getObjects()[198+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[198+i].setWorldX((16+aux) * gp.getTileSize());
+                gp.getObjects()[198+i].setWorldY((8) * gp.getTileSize());
                 aux++;
             }
             if (i>=6 && i<=14) {
-                gp.obj[198+i] = new OBJ_HallwayWarning();
-                gp.obj[198+i].worldX = (13+aux) * gp.tileSize;
-                gp.obj[198+i].worldY = (7) * gp.tileSize;
+                gp.getObjects()[198+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[198+i].setWorldX((13+aux) * gp.getTileSize());
+                gp.getObjects()[198+i].setWorldY((7) * gp.getTileSize());
                 aux++;
             }
             if (i>=14 && i<=22) {
-                gp.obj[198+i] = new OBJ_HallwayWarning();
-                gp.obj[198+i].worldX = (13+aux) * gp.tileSize;
-                gp.obj[198+i].worldY = (6) * gp.tileSize;
+                gp.getObjects()[198+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[198+i].setWorldX((13+aux) * gp.getTileSize());
+                gp.getObjects()[198+i].setWorldY((6) * gp.getTileSize());
                 aux++;
             }
             if (i>=22 && i<=27) {
-                gp.obj[198+i] = new OBJ_HallwayWarning();
-                gp.obj[198+i].worldX = (16+aux2) * gp.tileSize;
-                gp.obj[198+i].worldY = (5) * gp.tileSize;
+                gp.getObjects()[198+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[198+i].setWorldX((16+aux2) * gp.getTileSize());
+                gp.getObjects()[198+i].setWorldY((5) * gp.getTileSize());
                 aux2++;
             }
 
         }
 
         // CAMERA HALLWAY 3
-        gp.obj[255] = new OBJ_Camera();
-        gp.obj[255].worldX = 24 * gp.tileSize ;
-        gp.obj[255].worldY = 1 * gp.tileSize;
+        gp.getObjects()[255] = new OBJ_Camera();
+        gp.getObjects()[255].setWorldX(24 * gp.getTileSize());
+        gp.getObjects()[255].setWorldY(1 * gp.getTileSize());
 
         // DETECTION HALLWAY 3
         aux = 0;
@@ -115,58 +116,58 @@ public class AssetSetter {
                 aux = 0;
             }
             if (i<=4) {
-                gp.obj[227+i] = new OBJ_HallwayWarning();
-                gp.obj[227+i].worldX = (24+aux) * gp.tileSize;
-                gp.obj[227+i].worldY = (2) * gp.tileSize;
+                gp.getObjects()[227+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[227+i].setWorldX((24+aux) * gp.getTileSize());
+                gp.getObjects()[227+i].setWorldY((2) * gp.getTileSize());
                 aux++;
             }
             if (i>=4 && i<=12) {
-                gp.obj[227+i] = new OBJ_HallwayWarning();
-                gp.obj[227+i].worldX = (19+aux) * gp.tileSize;
-                gp.obj[227+i].worldY = (3) * gp.tileSize;
+                gp.getObjects()[227+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[227+i].setWorldX((19+aux) * gp.getTileSize());
+                gp.getObjects()[227+i].setWorldY((3) * gp.getTileSize());
                 aux++;
             }
             if (i>=12 && i<=20) {
-                gp.obj[227+i] = new OBJ_HallwayWarning();
-                gp.obj[227+i].worldX = (19+aux) * gp.tileSize;
-                gp.obj[227+i].worldY = (4) * gp.tileSize;
+                gp.getObjects()[227+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[227+i].setWorldX((19+aux) * gp.getTileSize());
+                gp.getObjects()[227+i].setWorldY((4) * gp.getTileSize());
                 aux++;
             }
             if (i>=20 && i<=25) {
-                gp.obj[227+i] = new OBJ_HallwayWarning();
-                gp.obj[227+i].worldX = (22+aux2) * gp.tileSize;
-                gp.obj[227+i].worldY = (5) * gp.tileSize;
+                gp.getObjects()[227+i] = new OBJ_HallwayWarning();
+                gp.getObjects()[227+i].setWorldX((22+aux2) * gp.getTileSize());
+                gp.getObjects()[227+i].setWorldY((5) * gp.getTileSize());
                 aux2++;
             }
 
         }
 
         // HALLWAY EXIT DOOR
-        gp.obj[256] = new OBJ_Door();
-        gp.obj[256].worldX = 28 * gp.tileSize;
-        gp.obj[256].worldY = 3 * gp.tileSize;
+        gp.getObjects()[256] = new OBJ_Door();
+        gp.getObjects()[256].setWorldX(28 * gp.getTileSize());
+        gp.getObjects()[256].setWorldY(3 * gp.getTileSize());
 
         // ACCESS CARD HALLWAY
-        gp.obj[257] = new OBJ_AccessCard();
-        gp.obj[257].worldX = 18 * gp.tileSize ;
-        gp.obj[257].worldY = 7 * gp.tileSize;
+        gp.getObjects()[257] = new OBJ_AccessCard();
+        gp.getObjects()[257].setWorldX(18 * gp.getTileSize());
+        gp.getObjects()[257].setWorldY(7 * gp.getTileSize());
 
 
 //        // TURNSTILE 1
-//        gp.obj[] = new OBJ_Turnstile();
-//        gp.obj[258].worldX = 26 * gp.tileSize ;
-//        gp.obj[258].worldY = 18 * gp.tileSize;
+//        gp.getObjects()[] = new OBJ_Turnstile();
+//        gp.getObjects()[258].setWorldX(26 * gp.getTileSize());
+//        gp.getObjects()[258].setWorldY(18 * gp.getTileSize());
 //
 //
 //        // TURNSTILE 2
-//        gp.obj[259] = new OBJ_Turnstile();
-//        gp.obj[259].worldX = 26 * gp.tileSize ;
-//        gp.obj[259].worldY = 21 * gp.tileSize;
+//        gp.getObjects()[259] = new OBJ_Turnstile();
+//        gp.getObjects()[259].setWorldX(26 * gp.getTileSize());
+//        gp.getObjects()[259].setWorldY(21 * gp.getTileSize());
 
         // TURNSTILE 3
-        gp.obj[260] = new OBJ_Turnstile();
-        gp.obj[260].worldX = 26 * gp.tileSize ;
-        gp.obj[260].worldY = 24 * gp.tileSize;
+        gp.getObjects()[260] = new OBJ_Turnstile();
+        gp.getObjects()[260].setWorldX(26 * gp.getTileSize());
+        gp.getObjects()[260].setWorldY(24 * gp.getTileSize());
 
 
         // parámetros del mapa
@@ -243,9 +244,9 @@ public class AssetSetter {
                 continue; // este es el camino: NO crear la alerta
             }
 
-            gp.obj[startIndex + i] = new OBJ_ExitWarning();
-            gp.obj[startIndex + i].worldX = (baseWorldX + col) * gp.tileSize;
-            gp.obj[startIndex + i].worldY = (baseWorldY + row) * gp.tileSize;
+            gp.getObjects()[startIndex + i] = new OBJ_ExitWarning();
+            gp.getObjects()[startIndex + i].setWorldX((baseWorldX + col) * gp.getTileSize());
+            gp.getObjects()[startIndex + i].setWorldY((baseWorldY + row) * gp.getTileSize());
         }
 
         // DETECTION EXIT DEBUG
@@ -257,13 +258,13 @@ public class AssetSetter {
     }
 
     public void setNPC(){
-        gp.npc[0] = new NPC_Profe(gp);
-        gp.npc[0].worldX = 10 * gp.tileSize;  // 10 40
-        gp.npc[0].worldY = 40 * gp.tileSize;
+        gp.getNPCs()[0] = new NPC_Profe(gp);
+        gp.getNPCs()[0].setWorldX(10 * gp.getTileSize());  // 10 40
+        gp.getNPCs()[0].setWorldY(40 * gp.getTileSize());
 
-        gp.npc[1] = new NPC_Police(gp);
-        gp.npc[1].worldX = 2 * gp.tileSize;
-        gp.npc[1].worldY = 16 * gp.tileSize;
+        gp.getNPCs()[1] = new NPC_Police(gp);
+        gp.getNPCs()[1].setWorldX(2 * gp.getTileSize());
+        gp.getNPCs()[1].setWorldY(16 * gp.getTileSize());
     }
 
 
