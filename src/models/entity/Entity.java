@@ -1,12 +1,21 @@
 package models.entity;
 
 import models.GamePanel;
+import interfaces.Drawable;
+import interfaces.Updatable;
+import interfaces.Collidable;
+import exceptions.ResourceLoadException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Entity {
+/**
+ * Clase abstracta que representa una entidad en el juego.
+ * Aplica el principio GRASP de Information Expert y Polymorphism.
+ * Implementa interfaces para reducir acoplamiento (Low Coupling).
+ */
+public abstract class Entity implements Drawable, Updatable, Collidable {
     private GamePanel gp;
     private int worldX;
     private int worldY;
@@ -30,18 +39,38 @@ public class Entity {
     private String[] dialogues = new String[20];
     private int dialogueIndex = 0;
 
-    public void speak(){}
+    /**
+     * Método abstracto para que las subclases implementen su propia forma de hablar.
+     * Aplica el principio GRASP de Polymorphism.
+     */
+    public abstract void speak();
 
-    public void update() {
-        // Método vacío por defecto, las subclases pueden sobrescribirlo
-    }
+    /**
+     * Método abstracto para actualizar la entidad.
+     * Cada subclase debe implementar su propia lógica de actualización.
+     */
+    @Override
+    public abstract void update();
 
-    public BufferedImage setup(String imagePath) {
+    /**
+     * Carga una imagen desde el sistema de recursos.
+     * Aplica el principio GRASP de Information Expert.
+     * 
+     * @param imagePath Ruta de la imagen relativa a /res/
+     * @return La imagen cargada
+     * @throws ResourceLoadException Si no se puede cargar la imagen
+     */
+    public BufferedImage setup(String imagePath) throws ResourceLoadException {
         try {
-            return ImageIO.read(getClass().getResourceAsStream("/res/" + imagePath));
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/res/" + imagePath));
+            if (image == null) {
+                throw new ResourceLoadException(imagePath);
+            }
+            return image;
+        } catch (ResourceLoadException e) {
+            throw e;
         } catch (Exception e) {
-            System.err.println("Error loading image: " + imagePath);
-            return null;
+            throw new ResourceLoadException(imagePath, e);
         }
     }
 

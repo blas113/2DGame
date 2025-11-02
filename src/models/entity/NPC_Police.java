@@ -1,6 +1,7 @@
 package models.entity;
 
 import models.GamePanel;
+import exceptions.ResourceLoadException;
 
 import java.awt.*;
 
@@ -16,10 +17,20 @@ public class NPC_Police extends  Entity{
         setSolidAreaDefaultX(getSolidArea().x);
         setSolidAreaDefaultY(getSolidArea().y);
 
-        getImage();
+        try {
+            getImage();
+        } catch (ResourceLoadException e) {
+            System.err.println("Error: No se pudieron cargar las imágenes de la policía");
+            e.printStackTrace();
+        }
     }
 
-    public void getImage(){
+    /**
+     * Carga las imágenes del NPC Police.
+     * 
+     * @throws ResourceLoadException Si no se pueden cargar las imágenes
+     */
+    public void getImage() throws ResourceLoadException {
         setUp1(setup("/npc/SeguridadArriba1.png"));
         setUp2(setup("/npc/SeguridadArriba2.png"));
         setDown1(setup("/npc/SeguridadAbajo1.png"));
@@ -28,6 +39,14 @@ public class NPC_Police extends  Entity{
         setLeft2(setup("/npc/SeguridadIzquierda2.png"));
         setRight1(setup("/npc/SeguridadDerecha1.png"));
         setRight2(setup("/npc/SeguridadDerecha2.png"));
+    }
+    
+    /**
+     * Implementación del método abstracto speak().
+     */
+    @Override
+    public void speak() {
+        getGamePanel().getGameUI().setCurrentDialogue("¡Alto! Estás detenido.");
     }
 
     private int directionChangeCounter = 0;

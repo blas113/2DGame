@@ -4,6 +4,10 @@ import models.entity.Entity;
 import models.entity.Player;
 import models.object.SuperObject;
 import tiles.TileManager;
+import interfaces.Updatable;
+import interfaces.Drawable;
+import interfaces.DrawableWithContext;
+import exceptions.GameStateException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,10 +65,25 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
-    public void setupGame(){
-        aSetter.setObject();
-        aSetter.setNPC();
-        setGameState(titleState);
+    /**
+     * Configura el juego inicial.
+     * Aplica el principio GRASP de Creator (AssetSetter crea los objetos).
+     */
+    public void setupGame() {
+        try {
+            aSetter.setObject();
+            aSetter.setNPC();
+            setGameStateStrict(titleState);
+        } catch (GameStateException e) {
+            System.err.println("Error crítico al configurar el juego: " + e.getMessage());
+            e.printStackTrace();
+            // Intentar establecer un estado por defecto
+            this.gameState = titleState;
+        } catch (Exception e) {
+            System.err.println("Error inesperado al configurar el juego: " + e.getMessage());
+            e.printStackTrace();
+            this.gameState = titleState;
+        }
     }
 
     public void startGameThread(){
@@ -133,7 +152,32 @@ public class GamePanel extends JPanel implements Runnable{
         return gameState;
     }
     
+    /**
+     * Establece el estado del juego.
+     * Aplica el principio GRASP de Controller.
+     * 
+     * @param gameState El nuevo estado del juego
+     */
     public void setGameState(int gameState) {
+        // Validación interna sin lanzar excepción para evitar interrumpir el juego
+        if (gameState < 0 || (gameState > 3 && gameState != 6)) {
+            System.err.println("Advertencia: Intento de establecer estado de juego inválido: " + gameState);
+            return;
+        }
+        this.gameState = gameState;
+    }
+    
+    /**
+     * Valida y establece el estado del juego con validación estricta.
+     * Útil para inicialización donde los errores son críticos.
+     * 
+     * @param gameState El nuevo estado del juego
+     * @throws GameStateException Si el estado es inválido
+     */
+    public void setGameStateStrict(int gameState) throws GameStateException {
+        if (gameState < 0 || (gameState > 3 && gameState != 6)) {
+            throw new GameStateException(gameState, "Estado de juego inválido");
+        }
         this.gameState = gameState;
     }
 
@@ -184,10 +228,10 @@ public class GamePanel extends JPanel implements Runnable{
         if(getGameState() == playState){
             player.update();
 
-            // Actualizar NPCs
+            // Actualizar NPCs - Usando interfaz Updatable (GRASP: Polymorphism, Low Coupling)
             for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null) {
-                    npc[i].update();
+                if(npc[i] != null && npc[i] instanceof Updatable) {
+                    ((Updatable) npc[i]).update();
                 }
             }
 
@@ -212,16 +256,16 @@ public class GamePanel extends JPanel implements Runnable{
             // TILE
             tileM.draw(g2d);
 
-            //OBJECT
+            //OBJECT - Usando interfaz DrawableWithContext (GRASP: Polymorphism, Low Coupling)
             for(int i = 0; i < obj.length; i++){
-                if(obj[i] != null) {
-                    obj[i].draw(g2d, this);
+                if(obj[i] != null && obj[i] instanceof DrawableWithContext) {
+                    ((DrawableWithContext) obj[i]).draw(g2d, this);
                 }
             }
-            // NPC FOR LOOP
+            // NPC FOR LOOP - Usando interfaz Drawable (GRASP: Polymorphism, Low Coupling)
             for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null) {
-                    npc[i].draw(g2d);
+                if(npc[i] != null && npc[i] instanceof Drawable) {
+                    ((Drawable) npc[i]).draw(g2d);
                 }
             }
 

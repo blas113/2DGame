@@ -1,6 +1,7 @@
 package models.entity;
 
 import models.GamePanel;
+import exceptions.ResourceLoadException;
 
 import java.awt.*;
 
@@ -16,10 +17,20 @@ public class NPC_Profe extends Entity {
         setSolidAreaDefaultX(getSolidArea().x);
         setSolidAreaDefaultY(getSolidArea().y);
         
-        getImage();
+        try {
+            getImage();
+        } catch (ResourceLoadException e) {
+            System.err.println("Error: No se pudieron cargar las imágenes del profesor");
+            e.printStackTrace();
+        }
     }
 
-    public void getImage(){
+    /**
+     * Carga las imágenes del NPC Profe.
+     * 
+     * @throws ResourceLoadException Si no se pueden cargar las imágenes
+     */
+    public void getImage() throws ResourceLoadException {
         setUp1(setup("/npc/ProfeArriba1.png"));
         setUp2(setup("/npc/ProfeArriba2.png"));
         setDown1(setup("/npc/ProfeAbajo1.png"));
@@ -28,6 +39,14 @@ public class NPC_Profe extends Entity {
         setLeft2(setup("/npc/ProfeIzquierda2.png"));
         setRight1(setup("/npc/ProfeDerecha1.png"));
         setRight2(setup("/npc/ProfeDerecha2.png"));
+    }
+    
+    /**
+     * Implementación del método abstracto speak().
+     */
+    @Override
+    public void speak() {
+        getGamePanel().getGameUI().setCurrentDialogue("¡No puedes escapar!");
     }
     
     private int directionChangeCounter = 0;
