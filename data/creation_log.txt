@@ -1,0 +1,12 @@
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=0, Type=ACCESS_CARD, WorldX=11, WorldY=46
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=1, Type=DOOR, WorldX=15, WorldY=36
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=2, Type=DOOR, WorldX=1, WorldY=3
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=40, Type=QR_CODE, WorldX=10, WorldY=27
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=3, Type=CAMERA, WorldX=7, WorldY=1
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=254, Type=CAMERA, WorldX=16, WorldY=9
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=255, Type=CAMERA, WorldX=24, WorldY=1
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=256, Type=DOOR, WorldX=28, WorldY=3
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=257, Type=ACCESS_CARD, WorldX=18, WorldY=7
+[2025-11-02 02:04:39] CREATION: Objeto creado: Index=260, Type=TURNSTILE, WorldX=26, WorldY=24
+[2025-11-02 02:04:39] CREATION: Entidad creada: Index=0, Type=NPC_PROFE, WorldX=10, WorldY=40
+[2025-11-02 02:04:39] CREATION: Entidad creada: Index=1, Type=NPC_POLICE, WorldX=2, WorldY=16
