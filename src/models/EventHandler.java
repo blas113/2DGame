@@ -24,21 +24,21 @@ public class EventHandler {
     public void checkEvent(){
 
         if(hit(15,36,"right") == true){
-            teleport(2,3, GamePanel.dialogueState, 2);
+            teleport(2,3, gp.getDialogueState(), 2);
         }
 
         if(hit(28, 3, "right") == true){
-            teleport(4, 19, GamePanel.dialogueState, 3);
+            teleport(4, 19, gp.getDialogueState(), 3);
         }
 
         if(hit(6, 2, "up") == true) {
-            disableCamera(GamePanel.dialogueState, 1);
+            disableCamera(gp.getDialogueState(), 1);
         }
         if(hit(15, 8, "down") == true) {
-            disableCamera(GamePanel.dialogueState, 2);
+            disableCamera(gp.getDialogueState(), 2);
         }
         if(hit(23, 2, "up") == true) {
-            disableCamera(GamePanel.dialogueState, 3);
+            disableCamera(gp.getDialogueState(), 3);
         }
     }
 
@@ -63,8 +63,11 @@ public class EventHandler {
 
     public void teleport(int coordsX, int coordsY, int gameState, int level){
         gp.setGameState(gameState);
-        gp.getGameUI().setCurrentDialogue("Felicidades!\nPasaste al nivel  "+level);
-        // Dar hints segun nivel
+        if (level == 2) {
+            gp.getGameUI().setCurrentDialogue("Necesitas eludir las camaras.\n\nDirigete hacia los paneles\nelectricos, miralos y avanza en \nla misma direccion mientras\npulsas enter repetidas veces.");
+        } else if (level == 3) {
+            gp.getGameUI().setCurrentDialogue("Debes escapar del guardia\ny agarrar el QR para poder\nsalir por el molinete\nhabilitado.");
+        }
         gp.getPlayer().setWorldX(gp.getTileSize() * coordsX);
         gp.getPlayer().setWorldY(gp.getTileSize() * coordsY);
     }

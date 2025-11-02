@@ -95,6 +95,10 @@ public class GamePanel extends JPanel implements Runnable{
     public int getTileSize(){
         return tileSize;
     }
+
+    public int getDialogueState(){
+        return dialogueState;
+    }
     
     public int getScreenWidth() {
         return screenWidth;
@@ -186,6 +190,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setNPC();
         aSetter.setObject();
         player.setHasKey(0);
+
     }
 
 

@@ -39,6 +39,7 @@ public class Player extends Entity {
 
 
         setDefaultValues();
+
         try {
             getPlayerImage();
         } catch (ResourceLoadException e) {

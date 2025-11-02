@@ -1,5 +1,6 @@
 package models;
 
+import javax.swing.*;
 import java.awt.*;
 public class UI {
     private GamePanel gp;
@@ -7,6 +8,7 @@ public class UI {
     private Font arial_40;
     private int commandNum = 0;
     private String currentDialogue;
+    private Image titleBackground;
     
     // Getters y Setters
     public int getCommandNum() {
@@ -30,6 +32,7 @@ public class UI {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
 
+        titleBackground = new ImageIcon(getClass().getResource("/res/background/lasers.png")).getImage();
     }
 
 
@@ -63,12 +66,13 @@ public class UI {
 
     public void drawTitleScreen(){
 
-        g2.setColor(new Color(0,0,0));             // FILL BACKGROUND BLACK
+        g2.drawImage(titleBackground, 0, 0, gp.getScreenWidth(), gp.getScreenHeight(), null);
+        g2.setColor(new Color(0,0,0,50));             // FILL BACKGROUND BLACK
         g2.fillRect(0,0, gp.getScreenWidth(), gp.getScreenHeight());
 
         //TITLE NAME
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-        String text = "Escape UADE\n";
+        String text = "Campus Escape\n";
         int x = getXforCenteredText(text);
         int y = gp.getTileSize() * 3;
 
@@ -174,8 +178,8 @@ public class UI {
 
     public void drawDialogueScreen() {
         // Dimensiones de la ventana de diálogo
-        int width = gp.getScreenWidth() - (gp.getTileSize() * 6);
-        int height = gp.getTileSize() * 3;
+        int width = gp.getScreenWidth() - (gp.getTileSize() * 5);
+        int height = gp.getTileSize() * 6;
         int x = (gp.getScreenWidth() - width) / 2;
         int y = gp.getTileSize() * 2;
 
