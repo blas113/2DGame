@@ -4,49 +4,49 @@ import models.GamePanel;
 
 import java.awt.*;
 
-public class NPC_Profe extends Entity {
-    public NPC_Profe(GamePanel gp) {
+public class NPC_Police extends  Entity{
+    public NPC_Police(GamePanel gp) {
         super(gp);
-        
+
         direction = "down";
-        speed = 2; // Más rápido que el jugador 
-        
+        speed = 1; // Más rápido que el jugador
+
         // área de colisión
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        
+
         getImage();
     }
 
     public void getImage(){
-        up1 = setup("/npc/ProfeArriba1.png");
-        up2 = setup("/npc/ProfeArriba2.png");
-        down1 = setup("/npc/ProfeAbajo1.png");
-        down2 = setup("/npc/ProfeAbajo2.png");
-        left1 = setup("/npc/ProfeIzquierda1.png");
-        left2 = setup("/npc/ProfeIzquierda2.png");
-        right1 = setup("/npc/ProfeDerecha1.png");
-        right2 = setup("/npc/ProfeDerecha2.png");
+        up1 = setup("/npc/oldman_up_1.png");
+        up2 = setup("/npc/oldman_up_2.png");
+        down1 = setup("/npc/oldman_down_1.png");
+        down2 = setup("/npc/oldman_down_2.png");
+        left1 = setup("/npc/oldman_left_1.png");
+        left2 = setup("/npc/oldman_left_2.png");
+        right1 = setup("/npc/oldman_right_1.png");
+        right2 = setup("/npc/oldman_right_2.png");
     }
-    
+
     public void update() {
         // Pathfinding hacia el jugador
         int playerWorldX = gp.player.worldX;
         int playerWorldY = gp.player.worldY;
-        
+
         // Calcular distancia al jugador
         int deltaX = playerWorldX - worldX;
         int deltaY = playerWorldY - worldY;
-        
-        // Determinar dirección hacia el jugador con pathfinding 
+
+        // Determinar dirección hacia el jugador con pathfinding
         String targetDirection = getDirectionToPlayer(deltaX, deltaY);
-        
+
         // Intentar moverse en la dirección objetivo
         direction = targetDirection;
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        
+
         // Si hay colisión, intentar direcciones alternativas
         if(collisionOn) {
             String[] alternativeDirections = getAlternativeDirections(targetDirection);
@@ -59,7 +59,7 @@ public class NPC_Profe extends Entity {
                 }
             }
         }
-        
+
         // Si no hay colisión, moverse
         if(!collisionOn) {
             switch(direction) {
@@ -77,7 +77,7 @@ public class NPC_Profe extends Entity {
                     break;
             }
         }
-        
+
         // Actualizar sprite
         spriteCounter++;
         if(spriteCounter > 12) {
@@ -89,7 +89,7 @@ public class NPC_Profe extends Entity {
             spriteCounter = 0;
         }
     }
-    
+
     private String getDirectionToPlayer(int deltaX, int deltaY) {
         // Priorizar la dirección con mayor distancia
         if(Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -98,7 +98,7 @@ public class NPC_Profe extends Entity {
             return deltaY > 0 ? "down" : "up";
         }
     }
-    
+
     private String[] getAlternativeDirections(String primaryDirection) {
         // Retornar direcciones alternativas basadas en la dirección primaria
         switch(primaryDirection) {
@@ -114,5 +114,4 @@ public class NPC_Profe extends Entity {
                 return new String[]{"up", "down", "left", "right"};
         }
     }
-
 }

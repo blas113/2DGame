@@ -7,25 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-//    GamePanel gp;
-//    public int worldX, worldY;
-//    public int y;
-//    public int speed;
-//
-//    public BufferedImage bup1, bup2, bdown1, bdown2, bleft1, bleft2, bright1, bright2, gup1, gup2, gdown1, gdown2, gleft1, gleft2, gright1, gright2;
-//    public String direction;
-//
-//    public int spriteCounter = 0;
-//    public int spriteNum = 1;
-//
-//    // Collision detection
-//    public Rectangle solidArea;
-//    public boolean collisionOn = false;
-//
-//    public int solidAreaDefaultX, solidAreaDefaultY;
     GamePanel gp;
     public int worldX, worldY;
-    public int y;
     public int speed;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
@@ -35,7 +18,6 @@ public class Entity {
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    public int actionLockCounter = 0;
 
     // Collision detection
     public Rectangle solidArea;
@@ -43,7 +25,6 @@ public class Entity {
 
     public int solidAreaDefaultX, solidAreaDefaultY;
 
-    //public String dialogues[] = new String[20];
     public String[] dialogues = new String[20];
     public int dialogueIndex = 0;
 

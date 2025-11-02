@@ -16,7 +16,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int  screenY;
 
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
@@ -97,6 +97,8 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            //gp.keyH.enterPressed = false;
+
             // CHECK OBJ COLLISION
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
@@ -151,10 +153,9 @@ public class Player extends Entity {
                     hasKey++;
                     gp.obj[i] = null;
                     gp.ui.currentDialogue = "Has encontrado una tarjeta!";
-                    System.out.println("1Key: "+ hasKey);
                     gp.gameState = gp.dialogueState;
                     break;
-                case "door":
+                case "door", "molinete":
                     if (hasKey > 0) {
                         gp.obj[i] = null;
                         hasKey--;
@@ -163,24 +164,26 @@ public class Player extends Entity {
                         gp.ui.currentDialogue = "La puerta está \ncerrada con llave.";
                     }
                     gp.gameState = gp.dialogueState;
-                    System.out.println("2Key: "+ hasKey);
                     break;
                 case "hallwaywarning":
-                    System.out.println("EXIT");
-                    // System.exit(1);
                     gp.gameState = gp.gameOverState;
                     break;
-
+                case "qrcode":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    gp.ui.currentDialogue = "Has encontrado un QR \nUsalo para escapar!";
+                    gp.npc[1].speed = 2;
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case "exitwarning":
+                    gp.gameState = gp.gameOverState;
+                    break;
 
             }
         }
 
     }
     public void draw(Graphics2D g2d){
-//        g2d.setColor(Color.white);
-//
-//        g2d.fillRect(x, y, gp.getTileSize() , gp.getTileSize());
-
         BufferedImage image = null;
         switch (direction){
             case "up":

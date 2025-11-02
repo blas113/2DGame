@@ -20,7 +20,7 @@ public class TileManager {
         // Stores numbers from res.maps
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-        loadMap("/res/maps/world02.txt");
+        loadMap("/res/maps/world.txt");
     }
 
     public void getTileImage(){
@@ -105,6 +105,41 @@ public class TileManager {
             tile[9] = new Tile();
             tile[9].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/hallway.png"));
 
+            // EXIT
+            tile[19] = new Tile();
+            tile[19].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/exitFloor.png"));
+
+            // TURNSTILE EMPTY
+            tile[20] = new Tile();
+            tile[20].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/emptyWindmill.png"));
+            tile[20].collision = true;
+
+            // TURNSTILE ON
+            tile[21] = new Tile();
+            tile[21].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/positiveWindmill.png"));
+            tile[21].collision = true;
+
+            // TURNSTILE OFF
+            tile[22] = new Tile();
+            tile[22].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/negativeWindmill.png"));
+            tile[22].collision = true;
+
+            // TURNSTILE OFF
+            tile[23] = new Tile();
+            tile[23].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/windmillDisabled.png"));
+            tile[23].collision = true;
+
+            // WARNING PANEL
+            tile[24] = new Tile();
+            tile[24].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallBoard.png"));
+            tile[24].collision = true;
+
+            // UPSIDE DONW WARNING PANEL
+            tile[25] = new Tile();
+            tile[25].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallBoardInverted.png"));
+            tile[25].collision = true;
+
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -122,7 +157,6 @@ public class TileManager {
 
             while (col < gp.maxWorldCol && row < gp.maxWorldRow){
                 String line = br.readLine();
-                System.out.println(line);// get data from a line
                 while (col < gp.maxWorldCol){
                     String numbers[] = line.split(" ");
 

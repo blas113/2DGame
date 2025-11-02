@@ -12,6 +12,6 @@ public class OBJ_HallwayWarning extends SuperObject{
             e.printStackTrace();
         }
 
-        collision = true;
+        collision = false;
     }
 }

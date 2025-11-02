@@ -1,17 +1,11 @@
 package models;
 
 import java.awt.*;
-import java.text.DecimalFormat;
-
 public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
-    public boolean messageOn = false;
-    public String message = "";
     public int commandNum = 0;
-    int messageCounter = 0;
-    public boolean gameFinished = false;
     public String currentDialogue;
 
 

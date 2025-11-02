@@ -23,9 +23,6 @@ public class GamePanel extends JPanel implements Runnable{
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
-
 
 
     // FPS
@@ -33,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     TileManager tileM = new TileManager(this);
     public EventHandler eHandler = new EventHandler(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     Thread gameThread; // Redraw 60 times per secods (60 FPS)
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -43,7 +40,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Displays up to 10 objects at the same time
     public SuperObject obj[] = new SuperObject[1000];
-    public Entity entity[] = new Entity[10];
     public Entity npc[] = new Entity[10];
 
     public UI ui = new UI(this);
@@ -55,14 +51,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
-    public final int characterState = 4;
-    public final int optionsState = 5;
     public final int gameOverState = 6;
-    public final int transitionState = 7;
-    public final int tradeState = 8;
-    public final int sleepState = 9;
-    public final int mapState = 10;
-    public final int cutsceneState = 11;
+
 
 
     public GamePanel() {
@@ -92,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
         player.setDefaultValues();
         aSetter.setNPC();
         aSetter.setObject();
+        player.hasKey = 0;
     }
 
 
@@ -168,13 +159,12 @@ public class GamePanel extends JPanel implements Runnable{
                     obj[i].draw(g2d, this);
                 }
             }
-            // NPC
+            // NPC FOR LOOP
             for(int i = 0; i < npc.length; i++){
                 if(npc[i] != null) {
                     npc[i].draw(g2d);
                 }
             }
-
 
             // PLAYER
             player.draw(g2d);

@@ -23,7 +23,21 @@ public class EventHandler {
     public void checkEvent(){
 
         if(hit(15,36,"right") == true){
-            teleport(4,3);
+            teleport(2,3, gp.dialogueState, 2);
+        }
+
+        if(hit(28, 3, "right") == true){
+            teleport(4, 19, gp.dialogueState, 3);
+        }
+
+        if(hit(6, 2, "up") == true) {
+            disableCamera(gp.dialogueState, 1);
+        }
+        if(hit(15, 8, "down") == true) {
+            disableCamera(gp.dialogueState, 2);
+        }
+        if(hit(23, 2, "up") == true) {
+            disableCamera(gp.dialogueState, 3);
         }
     }
 
@@ -46,11 +60,36 @@ public class EventHandler {
         return hit;
     }
 
-    public void teleport(int coordsX, int coordsY){
-        //gp.gameState = gameState;
-        // gp.ui.currentDialog = "Teleport";
-        System.out.println("TELEPORT");
+    public void teleport(int coordsX, int coordsY, int gameState, int level){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "Felicidades!\nPasaste al nivel  "+level;
+        // Dar hints segun nivel
         gp.player.worldX = gp.tileSize*coordsX;
         gp.player.worldY = gp.tileSize*coordsY;
+    }
+
+    public void disableCamera(int gameState, int cameraNumber) {
+        if (gp.keyH.enterPressed == true){
+            gp.gameState = gameState;
+            gp.ui.currentDialogue = "Desactivaste la camara!";
+
+            // Logica
+            if (cameraNumber == 1) {
+                for (int i = 4;i <= 36;i++){
+                    gp.obj[i]=null;
+                }
+            }
+            if (cameraNumber == 2) {
+                for (int i = 198;i <=226;i++){
+                    gp.obj[i]=null;
+                }
+            }
+            if (cameraNumber == 3) {
+                for (int i = 227;i <=253;i++){
+                    gp.obj[i]=null;
+                }
+            }
+
+        }
     }
 }
