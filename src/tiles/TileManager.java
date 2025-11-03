@@ -139,6 +139,96 @@ public class TileManager {
             tile[25].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallBoardInverted.png"));
             tile[25].collision = true;
 
+            // EXPENDING MACHINE
+            tile[26] = new Tile();
+            tile[26].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/expendingMachine.png"));
+            tile[26].collision = true;
+
+            // EXPENDING MACHINE INVERTED
+            tile[27] = new Tile();
+            tile[27].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/expendingMachineInverted.png"));
+            tile[27].collision = true;
+
+            // HOT WATER DISPENSER
+            tile[28] = new Tile();
+            tile[28].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/hotWaterDispenser.png"));
+            tile[28].collision = true;
+
+            // HOT WATER DISPENSER INVERTED
+            tile[29] = new Tile();
+            tile[29].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/hotWaterDispenserInverted.png"));
+            tile[29].collision = true;
+
+            // LOCKERS
+            tile[30] = new Tile();
+            tile[30].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/lockersUp.png"));
+            tile[30].collision = true;
+
+            // LOCKERS INVERTED
+            tile[31] = new Tile();
+            tile[31].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/lockersInverted.png"));
+            tile[31].collision = true;
+
+            // SMOKE SENSOR
+            tile[32] = new Tile();
+            tile[32].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/smokeSensor.png"));
+            tile[32].collision = true;
+
+            // SMOKE SENSOR INVERTED
+            tile[33] = new Tile();
+            tile[33].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/smokeSensorInverted.png"));
+            tile[33].collision = true;
+
+            // WATCH
+            tile[34] = new Tile();
+            tile[34].image= ImageIO.read(getClass().getResourceAsStream("/res/tiles/watchUp.png"));
+            tile[34].collision = true;
+
+            // WATCH INVERTED
+            tile[35] = new Tile();
+            tile[35].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/watchInverted.png"));
+            tile[35].collision = true;
+
+            // PANEL
+            tile[36] = new Tile();
+            tile[36].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/panelUp.png"));
+            tile[36].collision = true;
+
+            // PANEL INVERTED
+            tile[37] = new Tile();
+            tile[37].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/panelInverted.png"));
+            tile[37].collision = true;
+
+            // WINDOW
+            tile[38] = new Tile();
+            tile[38].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/windowDown.png"));
+            tile[38].collision = true;
+
+            tile[39] = new Tile();
+            tile[39].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/windowUp.png"));
+            tile[39].collision = true;
+
+            tile[40] = new Tile();
+            tile[40].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/windowMid.png"));
+            tile[40].collision = true;
+
+            tile[41] = new Tile();
+            tile[41].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/window.png"));
+            tile[41].collision = true;
+
+            // BOARD
+            tile[42] = new Tile();
+            tile[42].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/boardLeft.png"));
+            tile[42].collision = true;
+
+            tile[43] = new Tile();
+            tile[43].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/boardRight.png"));
+            tile[43].collision = true;
+
+            tile[44] = new Tile();
+            tile[44].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/boardMid.png"));
+            tile[44].collision = true;
+
 
         } catch (IOException e){
             e.printStackTrace();
