@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int pauseState = 2;
     public static final int dialogueState = 3;
     public static final int gameOverState = 6;
+    public static final int gameEndState = 7;
 
 
 
@@ -164,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setGameState(int gameState) {
         // Validación interna sin lanzar excepción para evitar interrumpir el juego
-        if (gameState < 0 || (gameState > 3 && gameState != 6)) {
+        if (gameState < 0 || (gameState > 3 && (gameState != 7 && gameState != 6))) {
             System.err.println("Advertencia: Intento de establecer estado de juego inválido: " + gameState);
             return;
         }

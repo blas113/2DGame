@@ -107,7 +107,7 @@ public class KeyHandler implements KeyListener {
 
 
         // GAME OVER STATE
-        if (gp.getGameState() == GamePanel.gameOverState) {
+        if (gp.getGameState() == GamePanel.gameOverState || gp.getGameState() == GamePanel.gameEndState) {
             if(code == KeyEvent.VK_W){
                 int newCommandNum = gp.getGameUI().getCommandNum() - 1;
                 if(newCommandNum < 0){

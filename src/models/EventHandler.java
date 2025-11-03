@@ -40,6 +40,11 @@ public class EventHandler {
         if(hit(23, 2, "up") == true) {
             disableCamera(gp.getDialogueState(), 3);
         }
+        if(hit(26, 24, "right") == true) {
+            System.out.println("HOLA");
+            endGame();
+        }
+
     }
 
     public boolean hit(int eventCol,int eventRow, String reqDirection) {
@@ -70,6 +75,10 @@ public class EventHandler {
         }
         gp.getPlayer().setWorldX(gp.getTileSize() * coordsX);
         gp.getPlayer().setWorldY(gp.getTileSize() * coordsY);
+    }
+
+    public void endGame() {
+        gp.setGameState(GamePanel.gameEndState);
     }
 
     public void disableCamera(int gameState, int cameraNumber) {
