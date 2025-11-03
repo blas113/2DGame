@@ -78,7 +78,7 @@ public class KeyHandler implements KeyListener {
         }
 
         // PLAY STATE
-        if(gp.getGameState() == GamePanel.playState){
+        if(gp.getGameState() == GamePanel.playState || gp.getGameState() == GamePanel.pauseState){
             if(code == KeyEvent.VK_W){
                 upPressed = true;
             }
@@ -104,6 +104,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+
 
         // GAME OVER STATE
         if (gp.getGameState() == GamePanel.gameOverState) {
