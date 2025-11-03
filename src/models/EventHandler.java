@@ -41,7 +41,6 @@ public class EventHandler {
             disableCamera(gp.getDialogueState(), 3);
         }
         if(hit(26, 24, "right") == true) {
-            System.out.println("HOLA");
             endGame();
         }
 
