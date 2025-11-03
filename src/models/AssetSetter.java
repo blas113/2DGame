@@ -139,6 +139,12 @@ public class AssetSetter {
             gp.getObjects()[255].setWorldY(1 * gp.getTileSize());
             logObjectCreation(255, ObjectFactory.CAMERA, 24, 1);
 
+            // CAMERA HALLWAY 3
+            gp.getObjects()[255] = objectFactory.createObject(ObjectFactory.CAMERA);
+            gp.getObjects()[255].setWorldX(24 * gp.getTileSize());
+            gp.getObjects()[255].setWorldY(1 * gp.getTileSize());
+            logObjectCreation(255, ObjectFactory.CAMERA, 24, 1);
+
             // DETECTION HALLWAY 3
             aux = 0;
             aux2  = 0;
@@ -186,16 +192,29 @@ public class AssetSetter {
             logObjectCreation(257, ObjectFactory.ACCESS_CARD, 18, 7);
 
 
-//        // TURNSTILE 1
-//        gp.getObjects()[] = new OBJ_Turnstile();
-//        gp.getObjects()[258].setWorldX(26 * gp.getTileSize());
-//        gp.getObjects()[258].setWorldY(18 * gp.getTileSize());
-//
-//
-//        // TURNSTILE 2
-//        gp.getObjects()[259] = new OBJ_Turnstile();
-//        gp.getObjects()[259].setWorldX(26 * gp.getTileSize());
-//        gp.getObjects()[259].setWorldY(21 * gp.getTileSize());
+            // CAMERA END 1
+            gp.getObjects()[300] = objectFactory.createObject(ObjectFactory.CAMERA);
+            gp.getObjects()[300].setWorldX(16 * gp.getTileSize());
+            gp.getObjects()[300].setWorldY(28 * gp.getTileSize());
+            logObjectCreation(300, ObjectFactory.CAMERA, 16, 28);
+
+            // CAMERA END 2
+            gp.getObjects()[301] = objectFactory.createObject(ObjectFactory.CAMERA);
+            gp.getObjects()[301].setWorldX(24 * gp.getTileSize());
+            gp.getObjects()[301].setWorldY(28 * gp.getTileSize());
+            logObjectCreation(301, ObjectFactory.CAMERA, 24, 28);
+
+            // CAMERA END 3
+            gp.getObjects()[302] = objectFactory.createObject(ObjectFactory.CAMERA);
+            gp.getObjects()[302].setWorldX(16 * gp.getTileSize());
+            gp.getObjects()[302].setWorldY(15 * gp.getTileSize());
+            logObjectCreation(302, ObjectFactory.CAMERA, 16, 15);
+
+            // CAMERA END 4
+            gp.getObjects()[303] = objectFactory.createObject(ObjectFactory.CAMERA);
+            gp.getObjects()[303].setWorldX(24 * gp.getTileSize());
+            gp.getObjects()[303].setWorldY(15 * gp.getTileSize());
+            logObjectCreation(303, ObjectFactory.CAMERA, 24, 15);
 
             // TURNSTILE 3
             gp.getObjects()[260] = objectFactory.createObject(ObjectFactory.TURNSTILE);
@@ -283,11 +302,6 @@ public class AssetSetter {
             gp.getObjects()[startIndex + i].setWorldY((baseWorldY + row) * gp.getTileSize());
         }
 
-        //        // DETECTION EXIT DEBUG
-        //        //        gp.obj[42] = new OBJ_ExitWarning();
-        //        //        gp.obj[42].worldX = 12 * gp.tileSize;
-        //        //        gp.obj[42].worldY = (16) * gp.tileSize;
-
         } catch (GameConfigurationException e) {
             System.err.println("Error al crear objeto: " + e.getMessage());
             try {
@@ -303,6 +317,8 @@ public class AssetSetter {
                 System.err.println("Error al escribir log: " + ioException.getMessage());
             }
         }
+
+
     }
     
     /**
