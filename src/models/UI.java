@@ -202,7 +202,7 @@ public class UI {
 
         //RETRY
         g2.setFont(g2.getFont().deriveFont(50f));
-        text = "Retry";
+        text = "Play Again";
         x = getXforCenteredText(text);
         y += gp.getTileSize() * 4;
         g2.drawString(text,x,y);
